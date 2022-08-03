@@ -87,7 +87,7 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-cursor' },
     children: [
       {
-        name: 'Funksional Grouplarin Təyini',
+        name: 'Funksional qrupların təyini',
         url: '/anbar/funksionalgrouplarinteyini'
       },
     ]
