@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ValidatorFn, ValidationErrors, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { freeSet } from '@coreui/icons';
-import { IconSetService } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-funksionalgroiplarinteyini',
@@ -10,12 +8,6 @@ import { IconSetService } from '@coreui/icons-angular';
   styleUrls: ['./funksionalgroiplarinteyini.component.scss']
 })
 export class FunksionalGrouplarinTeyiniComponent implements OnInit {
-    
-    constructor(
-        public iconSet: IconSetService
-      ) {
-        iconSet.icons = { ...freeSet};
-      }
 
     simpleForm: FormGroup = new FormGroup({
         ad: new FormControl(''),
@@ -38,6 +30,7 @@ export class FunksionalGrouplarinTeyiniComponent implements OnInit {
 
     public rowPressed(selected: funksilar):void{
         this.currentName = selected;
+        console.log(selected.ad);
         this.simpleForm.patchValue({
             ad: selected.ad,
             faizler:{
@@ -45,37 +38,6 @@ export class FunksionalGrouplarinTeyiniComponent implements OnInit {
                 second: selected.faiz2,
             }
         })
-    }
-
-    public newGroup():void{
-        this.currentName = undefined;
-        this.simpleForm.patchValue({
-            ad: "",
-            faizler:{
-                first: "",
-                second: "",
-            }
-        })
-    }
-
-    public editRow(){
-        if(this.currentName === undefined){
-            let temp = new funksilar(this.simpleForm.value.ad, this.simpleForm.value.faizler.first, this.simpleForm.value.faizler.second, false, Type.Manat);
-            this.adlarList.push(temp);
-        }
-        else{
-            let id = this.adlarList.indexOf(this.currentName!,0);
-            console.log(id);
-            this.adlarList[id].ad = this.simpleForm.value.ad;
-            this.adlarList[id].faiz1 = this.simpleForm.value.faizler.first
-            this.adlarList[id].faiz2 = this.simpleForm.value.faizler.second
-        }
-    }
-
-    public deletRow(){
-        let id = this.adlarList.indexOf(this.currentName!,0);
-        console.log(id);
-        this.adlarList.splice(id,1)
     }
 }
 

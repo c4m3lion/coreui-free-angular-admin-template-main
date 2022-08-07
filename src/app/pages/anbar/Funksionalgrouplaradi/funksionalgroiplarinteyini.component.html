@@ -1,127 +1,88 @@
 <c-container>
     <c-row ngPreserveWhitespaces>
-        <c-col>
+        <c-col sm="5" md="4">
             <c-card class="mb-4">
-                <c-card-header>
-                    <c-col >
-                        <strong>Elementlər</strong>
-                        
-                        <button cButton color="white" shape="rounded-pill" (click)="newGroup()" [cModalToggle]="withPopoverModal.id">
-                            <svg cIcon name="cil-plus" size="lg" title="Numbered List Icon"></svg> Yeni qrup
-                        </button>
-                    </c-col>
-                  </c-card-header>
                 <c-card-body>
                     <table cTable hover [responsive]="true">
                         <thead >
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Funksional Grupun adı</th>
-                                <th scope="col">Faiz 1</th>
-                                <th scope="col">Faiz 2</th>
-                                <th scope="col">Status</th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable" *ngFor="let f of adlarList; index as i;">
+                            <tr class="clickable" *ngFor="let f of adlarList; index as i;" (click)="rowPressed(f)">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{f.ad}}</td>
-                                <td>{{f.faiz1}}%</td>
-                                <td>{{f.faiz2}}%</td>
-                                <td>{{f.status?"Aktiv":"Deaktiv"}}</td>
-                                <td>
-                                    <button cButton color="white" shape="rounded-pill" (click)="rowPressed(f)" [cModalToggle]="withPopoverModal.id">
-                                        <svg cIcon name="cil-pencil" size="lg" title="Numbered List Icon"></svg>
-                                    </button>
-                                    <button cButton color="white" shape="rounded-pill" (click)="rowPressed(f)" [cModalToggle]="deletModal.id">
-                                        <svg cIcon name="cil-trash" size="lg" title="Numbered List Icon"></svg>
-                                    </button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </c-card-body>
             </c-card>
         </c-col>
+        <c-col sm="8" md="8" *ngIf="currentName !== undefined">
+            <c-card class="mb-4">
+                <c-card-body>
+                    <form [formGroup]="simpleForm">
+                        <c-row class="mb-3">
+                            <label cLabel="col" cCol [sm]="4" sizing="lg">
+                                Funksional Grupun adı:
+                            </label>
+                            <c-col [sm]="6">
+                                <input cFormControl formControlName="ad" type="email" />
+                            </c-col>
+                        </c-row>
+                        <c-row class="mb-3" formGroupName="faizler">
+                            <label cLabel="col" cCol [sm]="4" sizing="lg">
+                                Göndərən həkimin faizi:
+                            </label>
+                            <c-col [sm]="6">
+                                <c-input-group>
+                                    <input cFormControl formControlName="first" type="number" />
+                                    <span cInputGroupText>%</span>
+                                </c-input-group>
+                            </c-col>
+                            <c-col [sm]="6" [offset]="{sm:4}">
+                                <c-input-group>
+                                    <input cFormControl formControlName="second" type="number" />
+                                    <span cInputGroupText>%</span>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="mb-3">
+                            <c-col [md]="3" [sm]="4" [xs]="4" [offset]="{sm:4}">
+                                <select cSelect id="inlineFormSelectPref">
+                                    <option value="1">faiz</option>
+                                    <option value="2">manat</option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                        <c-row class="mb-3">
+                            <label cLabel="col" cCol [sm]="4" for="inputPassword3" sizing="lg">
+                                Status:
+                            </label>
+                            <c-col [md]="3" [sm]="4" [xs]="4">
+                                <select cSelect id="inlineFormSelectPref">
+                                <option value="1">Aktiv</option>
+                                <option value="2">Deaktive</option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-end">
+                            <c-col>
+                                
+                                
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-end">
+                            <c-col>
+                                <button cButton color="primary" variant="outline">Yeni Qrup</button>
+                                <button cButton color="primary">Ok</button>
+                            </c-col>
+                        </c-row>
+                    </form>
+                </c-card-body>
+            </c-card>
+        </c-col>
     </c-row>
 </c-container>
-
-<c-modal #withPopoverModal alignment="center" id="withPopoverModal">
-    <c-modal-header>
-      <h5 cModalTitle>Qrup</h5>
-      <button [cModalToggle]="withPopoverModal.id" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-      
-        <c-col>
-            <form [formGroup]="simpleForm">
-                <c-row class="mb-3">
-                    <label cLabel="col" cCol [sm]="4" sizing="lg">
-                        Funksional Grupun adı:
-                    </label>
-                    <c-col [sm]="6">
-                        <input cFormControl formControlName="ad" type="email" />
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3" formGroupName="faizler">
-                    <label cLabel="col" cCol [sm]="4" sizing="lg">
-                        Göndərən həkimin faizi:
-                    </label>
-                    <c-col [sm]="6">
-                        <c-input-group>
-                            <input cFormControl formControlName="first" type="number" />
-                            <span cInputGroupText>%</span>
-                        </c-input-group>
-                    </c-col>
-                    <c-col [sm]="6" [offset]="{sm:4}">
-                        <c-input-group>
-                            <input cFormControl formControlName="second" type="number" />
-                            <span cInputGroupText>%</span>
-                        </c-input-group>
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3">
-                    <c-col [md]="3" [sm]="4" [xs]="4" [offset]="{sm:4}">
-                        <select cSelect id="inlineFormSelectPref">
-                            <option value="1">faiz</option>
-                            <option value="2">manat</option>
-                        </select>
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3">
-                    <label cLabel="col" cCol [sm]="4" for="inputPassword3" sizing="lg">
-                        Status:
-                    </label>
-                    <c-col [md]="3" [sm]="4" [xs]="4">
-                        <select cSelect id="inlineFormSelectPref">
-                        <option value="1">Aktiv</option>
-                        <option value="2">Deaktive</option>
-                        </select>
-                    </c-col>
-                </c-row>
-            </form>
-        </c-col>
-    </c-modal-body>
-    <c-modal-footer>
-      <button [cModalToggle]="withPopoverModal.id" cButton color="secondary">
-        Bağla
-      </button>
-      <!-- <button cButton color="primary" variant="outline">Yeni Qrup</button> -->
-      <button cButton color="primary" [cModalToggle]="withPopoverModal.id"  (click)="editRow()">Ok</button>
-    </c-modal-footer>
-  </c-modal>
-
-  <c-modal #deletModal id="deletModal">
-    <c-modal-header>
-      <h5 cModalTitle>Sil</h5>
-      <button [cModalToggle]="deletModal.id" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>Bu element silinəcək!</c-modal-body>
-    <c-modal-footer>
-      <button [cModalToggle]="deletModal.id" cButton color="secondary">
-        Bağla
-      </button>
-      <button cButton color="danger" (click)="deletRow()" [cModalToggle]="deletModal.id" >Sil</button>
-    </c-modal-footer>
-  </c-modal>

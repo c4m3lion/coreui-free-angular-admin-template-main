@@ -13,10 +13,9 @@ import {
   TableModule,
   UtilitiesModule,
   FormModule,
-  ButtonGroupModule,
-  ModalModule
+  ButtonGroupModule
 } from '@coreui/angular';
-import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { IconModule } from '@coreui/icons-angular';
 import { FunksionalGrouplarinTeyiniComponent } from './Funksionalgrouplaradi/funksionalgroiplarinteyini.component';
 import { CommonModule } from '@angular/common';
 
@@ -38,7 +37,6 @@ import { CommonModule } from '@angular/common';
     PopoverModule,
     ButtonGroupModule,
     FormModule,
-    ModalModule
   ],
   declarations: [
     FunksionalGrouplarinTeyiniComponent
